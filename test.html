@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentinel OS | Active Simulation</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%232ea043'><path d='M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z'/></svg>">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="app-body fullscreen-mode">
+    <div class="top-nav-bar">
+        <button class="lang-btn" onclick="toggleLanguage()">RU</button>
+    </div>
+
+    <div id="simulation-ui" class="test-container fade-in">
+        <div class="simulation-header">
+            <div class="score-section">
+                <span data-i18n="score">CORRECT:</span> <span id="score-count" class="highlight-green">0 / 0</span>
+            </div>
+            <div id="sim-progress" class="progress-tracker">TARGET: 1 / 50</div>
+            <button class="btn-secondary" onclick="abortMission()" data-i18n="abort">EXIT</button>
+        </div>
+
+        <div class="tools-panel">
+            <div class="tool-label" data-i18n="tools">INSPECTOR TOOLS:</div>
+            <button class="tool-btn" id="tool-urlscan" onclick="useTool('urlscan')" data-i18n="url_scan">URL SCAN</button>
+            <button class="tool-btn" id="tool-whois" onclick="useTool('whois')" data-i18n="whois">WHOIS</button>
+            <button class="tool-btn" id="tool-ssl" onclick="useTool('ssl')" data-i18n="ssl">SSL</button>
+            <button class="tool-btn" id="tool-headers" onclick="useTool('headers')" data-i18n="headers">HEADERS</button>
+        </div>
+
+        <div id="context-banner" class="context-banner clickable-banner" onclick="openEmailModal()"></div>
+
+        <div id="device-frame" class="chrome-browser">
+            <div id="heatmap-marker" class="heatmap-circle" hidden></div>
+            
+            <div class="chrome-tabs">
+                <div class="chrome-tab active">
+                    <span id="tab-title">Loading...</span>
+                    <span class="tab-close">×</span>
+                </div>
+                <div class="chrome-new-tab">+</div>
+            </div>
+
+            <div class="chrome-toolbar">
+                <div class="nav-btns">
+                    <span class="nav-arrow">‹</span>
+                    <span class="nav-arrow">›</span>
+                    <span class="nav-reload">↻</span>
+                </div>
+                <div class="chrome-address-bar">
+                    <span id="lock-icon" class="lock-status clickable-lock" onclick="openSslModal()" title="View SSL Certificate">🔒</span>
+                    <span id="address-bar" class="url-text">https://...</span>
+                    <button class="copy-url-btn" onclick="copyAddressUrl()" id="copy-btn">📋 COPY</button>
+                </div>
+            </div>
+
+            <div id="device-content" class="browser-viewport"></div>
+        </div>
+
+        <div id="console-output" class="console-box" hidden></div>
+
+        <div id="controls-area" class="controls-wrapper">
+            <div class="question-text" data-i18n="question">Is this a phishing attempt?</div>
+            <div class="btn-group row">
+                <button class="btn btn-legit" onclick="submitSentinelDecision(false)" data-i18n="btn_legit">[1] LEGITIMATE</button>
+                <button class="btn btn-phish" onclick="submitSentinelDecision(true)" data-i18n="btn_phish">[2] PHISHING</button>
+            </div>
+        </div>
+
+        <div id="explanation-area" class="explanation-box" hidden>
+            <div class="result-box">
+                <h3 id="result-status"></h3>
+                <p id="error-text" class="console-error"></p>
+            </div>
+            <div class="btn-group row" style="margin-top: 15px;">
+                <button id="next-btn" class="btn btn-primary" onclick="loadNextTarget()" data-i18n="btn_next">NEXT TARGET [ENTER]</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="analysis-screen" class="test-container fade-in" hidden>
+        <h1 class="success-text" data-i18n="comp_title">THREAT ANALYSIS REPORT</h1>
+        <div class="behavior-report">
+            <h3 data-i18n="report_header">SYSTEM BEHAVIORAL ANALYSIS</h3>
+            <p id="behavior-text"></p>
+        </div>
+
+        <div class="log-filter-btns">
+            <button class="filter-btn active" onclick="filterLog('all')" id="filter-all">ALL</button>
+            <button class="filter-btn" onclick="filterLog('pass')" id="filter-pass">PASSED</button>
+            <button class="filter-btn" onclick="filterLog('fail')" id="filter-fail">FAILED</button>
+            <button class="filter-btn" onclick="copyAnalysisReport()" id="copy-report-btn">📋 COPY REPORT</button>
+        </div>
+
+        <div id="analysis-log" class="analysis-log-container"></div>
+        
+        <div style="margin-top: 25px; text-align: center;">
+            <a href="index.html" class="btn btn-primary" data-i18n="btn_menu">RETURN TO MENU</a>
+        </div>
+    </div>
+
+    <div id="ssl-modal" class="modal-overlay" hidden>
+        <div class="modal-window">
+            <div class="modal-header">
+                <span data-i18n="ssl_cert_title">🔒 Security Certificate Viewer</span>
+                <span class="modal-close" onclick="closeSslModal()">×</span>
+            </div>
+            <div class="modal-body">
+                <div class="cert-field"><span class="cert-label">Issued To:</span> <span id="ssl-cert-domain" class="cert-val"></span></div>
+                <div class="cert-field"><span class="cert-label">Issued By:</span> <span id="ssl-cert-issuer" class="cert-val"></span></div>
+                <div class="cert-field"><span class="cert-label">Status:</span> <span id="ssl-cert-status" class="cert-val"></span></div>
+                <div class="cert-field"><span class="cert-label">Validity Period:</span> <span id="ssl-cert-validity" class="cert-val">2025 - 2027</span></div>
+                <div class="cert-field"><span class="cert-label">Fingerprint (SHA-256):</span> <code id="ssl-cert-serial" class="cert-code"></code></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="email-modal" class="modal-overlay" hidden>
+        <div class="modal-window email-window">
+            <div class="modal-header">
+                <span>📩 Incoming Notification Viewer</span>
+                <span class="modal-close" onclick="closeEmailModal()">×</span>
+            </div>
+            <div class="email-body-content">
+                <div class="email-row"><span class="email-label">From:</span> <span id="email-modal-sender" class="email-val highlight-red"></span></div>
+                <div class="email-row"><span class="email-label">To:</span> <span class="email-val">you@sentinel-os.local</span></div>
+                <div class="email-row"><span class="email-label">Subject:</span> <span id="email-modal-subject" class="email-val bold"></span></div>
+                <hr class="email-divider">
+                <div id="email-modal-body" class="email-text"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+    <script>
+        window.onload = () => { 
+            applyLanguage(); 
+            initSimulation();
+        };
+    </script>
+</body>
+</html>
