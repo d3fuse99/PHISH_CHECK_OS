@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0d1117">
+    <meta property="og:title" content="SENTINEL_OS | Phishing Simulator">
+    <meta property="og:description" content="Interactive web-based cybersecurity simulator to train users in identifying phishing attacks.">
+    <meta property="og:type" content="website">
+    <title>SENTINEL OS | Main Menu</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%232ea043'><path d='M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z'/></svg>">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="dashboard-body">
+    <header class="app-header">
+        <div class="header-left">
+            <span class="header-logo">SENTINEL_OS</span>
+            <span class="status-pill">● SYSTEM READY</span>
+        </div>
+        <div class="header-right">
+            <button class="lang-btn" onclick="toggleLanguage()">RU</button>
+        </div>
+    </header>
+
+    <main class="dashboard-container fade-in">
+        <div class="hero-section">
+            <span class="hero-badge" data-i18n="hero_badge">SECURITY SIMULATOR</span>
+            <h1 class="hero-title" data-i18n="hero_title">Identify Web Threats Before They Strike</h1>
+            <p class="hero-subtitle" data-i18n="subtitle">Inspect target domains, SSL certificates, email headers, and visual anomalies in real time.</p>
+            
+            <div class="accuracy-banner">
+                <span class="accuracy-label" data-i18n="accuracy_label">OVERALL ACCURACY</span>
+                <span id="accuracy-val" class="accuracy-num">0%</span>
+            </div>
+        </div>
+
+        <div class="operations-grid">
+            <div class="op-card card-easy" onclick="startOperation('easy')">
+                <div class="op-header">
+                    <span class="op-badge">LEVEL 01</span>
+                    <span class="op-target-count">50 SCENARIOS</span>
+                </div>
+                <h3 data-i18n="easy">EASY</h3>
+                <p class="op-desc" data-i18n="easy_desc">Unsecured HTTP connections, fake top-level domains, and obvious visual errors.</p>
+                <button class="btn-start" data-i18n="start_op">START OPERATION</button>
+            </div>
+
+            <div class="op-card card-medium" onclick="startOperation('medium')">
+                <div class="op-header">
+                    <span class="op-badge">LEVEL 02</span>
+                    <span class="op-target-count">50 SCENARIOS</span>
+                </div>
+                <h3 data-i18n="medium">MEDIUM</h3>
+                <p class="op-desc" data-i18n="medium_desc">Subdomain tricks, authentication spoofing, and Browser-in-the-Browser (BitB) popups.</p>
+                <button class="btn-start" data-i18n="start_op">START OPERATION</button>
+            </div>
+
+            <div class="op-card card-hard" onclick="startOperation('hard')">
+                <div class="op-header">
+                    <span class="op-badge">LEVEL 03</span>
+                    <span class="op-target-count">50 SCENARIOS</span>
+                </div>
+                <h3 data-i18n="hard">DIFFICULT</h3>
+                <p class="op-desc" data-i18n="hard_desc">Typosquatting, character replacement, header manipulation, and content anomalies.</p>
+                <button class="btn-start" data-i18n="start_op">START OPERATION</button>
+            </div>
+        </div>
+
+        <div class="dashboard-footer">
+            <div class="feature-tag">11+ Real World Brands</div>
+            <div class="feature-tag">BitB & SSL Inspection</div>
+            <div class="feature-tag">Offline Capable</div>
+            <button class="btn-reset" onclick="resetProgress()" data-i18n="reset">RESET PROGRESS</button>
+        </div>
+    </main>
+
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+    <script>
+        window.onload = () => { 
+            applyLanguage(); 
+            initMenuStats();
+        };
+    </script>
+</body>
+</html>
