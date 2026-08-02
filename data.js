@@ -18,7 +18,7 @@ const i18n = {
         url_scan: "URL SCAN",
         whois: "WHOIS", ssl: "SSL", headers: "HEADERS",
         question: "Is this a phishing attempt?",
-        btn_legit: "[1] LEGITIMATE", btn_phish: "[2] PHISHING",
+        btn_legit: "[1] LEGITIMATE", btn_phish: "[2] PHISHING", btn_report: "🚨 REPORT SCAM",
         btn_next: "NEXT TARGET [ENTER]",
         btn_menu: "RETURN TO MENU",
         correct: "✔ ANALYSIS CORRECT", wrong: "✖ ANALYSIS INCORRECT",
@@ -26,7 +26,17 @@ const i18n = {
         report_header: "SYSTEM BEHAVIORAL ANALYSIS",
         reset: "RESET PROGRESS",
         abort: "EXIT",
-        ssl_cert_title: "🔒 Security Certificate Viewer"
+        ssl_cert_title: "🔒 Security Certificate Viewer",
+        guide_btn: "❓ GUIDE",
+        guide_modal_title: "❓ Phishing Inspection Guide",
+        guide_s1_title: "1. Check Protocol & Lock",
+        guide_s1_desc: "Ensure the URL starts with https://. Click the lock icon to view SSL Certificate validity.",
+        guide_s2_title: "2. Verify Main Domain",
+        guide_s2_desc: "Watch out for subdomain tricks like discord.com.auth-verify.io where the real domain is auth-verify.io.",
+        guide_s3_title: "3. Inspect Email Sender",
+        guide_s3_desc: "Click the email banner to check if the sender domain matches the official service.",
+        guide_s4_title: "4. Look for Content Anomalies",
+        guide_s4_desc: "Check for typos on buttons, fake SSL badges painted on the page, or suspicious QR code payloads."
     },
     ru: {
         title: "SENTINEL_OS",
@@ -47,7 +57,7 @@ const i18n = {
         url_scan: "URL SCAN",
         whois: "WHOIS", ssl: "SSL", headers: "ЗАГОЛОВКИ",
         question: "Это фишинговая атака?",
-        btn_legit: "[1] БЕЗОПАСНО", btn_phish: "[2] ФИШИНГ",
+        btn_legit: "[1] БЕЗОПАСНО", btn_phish: "[2] ФИШИНГ", btn_report: "🚨 ЖАЛОБА В CERT",
         btn_next: "СЛЕДУЮЩАЯ ЦЕЛЬ [ENTER]",
         btn_menu: "В МЕНЮ",
         correct: "✔ АНАЛИЗ ВЕРЕН", wrong: "✖ ОШИБКА АНАЛИЗА",
@@ -55,22 +65,32 @@ const i18n = {
         report_header: "ПОВЕДЕНЧЕСКИЙ АНАЛИЗ СИСТЕМЫ",
         reset: "СБРОСИТЬ ПРОГРЕСС",
         abort: "ВЫЙТИ",
-        ssl_cert_title: "🔒 Просмотр SSL-сертификата"
+        ssl_cert_title: "🔒 Просмотр SSL-сертификата",
+        guide_btn: "❓ СПРАВКА",
+        guide_modal_title: "❓ Памятка по поиску фишинга",
+        guide_s1_title: "1. Проверь протокол и замочек",
+        guide_s1_desc: "Убедись, что адрес начинается с https://. Кликни на замочек для проверки SSL-сертификата.",
+        guide_s2_title: "2. Проверь настоящий домен",
+        guide_s2_desc: "Остерегайся подмены поддоменов вроде discord.com.auth-verify.io, где реальный домен — auth-verify.io.",
+        guide_s3_title: "3. Проверь отправителя письма",
+        guide_s3_desc: "Кликни на баннер письма, чтобы сверить домен отправителя с официальным сайтом.",
+        guide_s4_title: "4. Ищи аномалии в контенте",
+        guide_s4_desc: "Ищи опечатки в кнопках, поддельные картинки SSL-плашек и подозрительные ссылки в QR-кодах."
     }
 };
 
 const brands = [
-    { name: "Steam", domain: "steampowered.com", altDomain: "steamcommunity.com", color: "#66c0f4", type: "steam", registrar: "Valve Corporation", sslIssuer: "DigiCert SHA2 High Assurance" },
-    { name: "Telegram", domain: "telegram.org", altDomain: "t.me", color: "#24A1DE", type: "telegram", registrar: "MarkMonitor Inc.", sslIssuer: "DigiCert Global Root CA" },
-    { name: "Discord", domain: "discord.com", altDomain: "discord.gg", color: "#5865F2", type: "discord", registrar: "Cloudflare, Inc.", sslIssuer: "Cloudflare Inc ECC CA-3" },
-    { name: "DHL", domain: "dhl.com", altDomain: "dhl.de", color: "#FFCC00", type: "dhl", registrar: "Lexsynergy Limited", sslIssuer: "DigiCert Global CA" },
-    { name: "Gmail", domain: "google.com", altDomain: "accounts.google.com", color: "#EA4335", type: "google", registrar: "MarkMonitor Inc.", sslIssuer: "GTS CA 1C3" },
-    { name: "PayPal", domain: "paypal.com", altDomain: "paypal.me", color: "#0079C1", type: "paypal", registrar: "MarkMonitor Inc.", sslIssuer: "DigiCert SHA2 Extended" },
-    { name: "Amazon", domain: "amazon.com", altDomain: "aws.amazon.com", color: "#FF9900", type: "amazon", registrar: "MarkMonitor Inc.", sslIssuer: "DigiCert Global Root CA" },
-    { name: "Netflix", domain: "netflix.com", altDomain: "netflix.net", color: "#E50914", type: "netflix", registrar: "MarkMonitor Inc.", sslIssuer: "DigiCert Global CA" },
-    { name: "Spotify", domain: "spotify.com", altDomain: "spotify.link", color: "#1DB954", type: "spotify", registrar: "MarkMonitor Inc.", sslIssuer: "DigiCert Global Root CA" },
-    { name: "Google Drive", domain: "drive.google.com", altDomain: "docs.google.com", color: "#4285F4", type: "google_drive", registrar: "MarkMonitor Inc.", sslIssuer: "GTS CA 1C3" },
-    { name: "Instagram", domain: "instagram.com", altDomain: "ig.me", color: "#E1306C", type: "instagram", registrar: "RegistrarSafe, LLC", sslIssuer: "DigiCert High Assurance" }
+    { name: "Steam", domain: "steampowered.com", altDomain: "steamcommunity.com", color: "#66c0f4", type: "steam", registrar: "Valve Corporation", sslIssuer: "DigiCert SHA2 High Assurance", country: "US", createdDate: "2002-05-18" },
+    { name: "Telegram", domain: "telegram.org", altDomain: "t.me", color: "#24A1DE", type: "telegram", registrar: "MarkMonitor Inc.", sslIssuer: "DigiCert Global Root CA", country: "AE", createdDate: "2013-08-14" },
+    { name: "Discord", domain: "discord.com", altDomain: "discord.gg", color: "#5865F2", type: "discord", registrar: "Cloudflare, Inc.", sslIssuer: "Cloudflare Inc ECC CA-3", country: "US", createdDate: "2015-03-02" },
+    { name: "DHL", domain: "dhl.com", altDomain: "dhl.de", color: "#FFCC00", type: "dhl", registrar: "Lexsynergy Limited", sslIssuer: "DigiCert Global CA", country: "DE", createdDate: "1997-01-22" },
+    { name: "Gmail", domain: "google.com", altDomain: "accounts.google.com", color: "#EA4335", type: "google", registrar: "MarkMonitor Inc.", sslIssuer: "GTS CA 1C3", country: "US", createdDate: "1997-09-15" },
+    { name: "PayPal", domain: "paypal.com", altDomain: "paypal.me", color: "#0079C1", type: "paypal", registrar: "MarkMonitor Inc.", sslIssuer: "DigiCert SHA2 Extended", country: "US", createdDate: "1999-07-12" },
+    { name: "Amazon", domain: "amazon.com", altDomain: "aws.amazon.com", color: "#FF9900", type: "amazon", registrar: "MarkMonitor Inc.", sslIssuer: "DigiCert Global Root CA", country: "US", createdDate: "1994-11-01" },
+    { name: "Netflix", domain: "netflix.com", altDomain: "netflix.net", color: "#E50914", type: "netflix", registrar: "MarkMonitor Inc.", sslIssuer: "DigiCert Global CA", country: "US", createdDate: "1997-11-10" },
+    { name: "Spotify", domain: "spotify.com", altDomain: "spotify.link", color: "#1DB954", type: "spotify", registrar: "MarkMonitor Inc.", sslIssuer: "DigiCert Global Root CA", country: "SE", createdDate: "2006-07-14" },
+    { name: "Google Drive", domain: "drive.google.com", altDomain: "docs.google.com", color: "#4285F4", type: "google_drive", registrar: "MarkMonitor Inc.", sslIssuer: "GTS CA 1C3", country: "US", createdDate: "1997-09-15" },
+    { name: "Instagram", domain: "instagram.com", altDomain: "ig.me", color: "#E1306C", type: "instagram", registrar: "RegistrarSafe, LLC", sslIssuer: "DigiCert High Assurance", country: "US", createdDate: "2010-06-04" }
 ];
 
 function getLayout(scenario, lang) {
@@ -228,8 +248,8 @@ function getLayout(scenario, lang) {
             <div class="tg-page">
                 <div class="tg-box">
                     <div class="tg-qr-side">
-                        <div class="fake-qr"></div>
-                        <p>${lang==='en'?'Quick QR Login':'Быстрый вход по QR'}</p>
+                        <div class="fake-qr qr-interactive" onclick="openQrModal()" title="Click to inspect QR Code Payload"></div>
+                        <p style="font-size:0.75rem; color:#8b949e; margin-top:8px;">🔍 Click QR to Inspect Payload</p>
                     </div>
                     <div class="tg-form-side">
                         <h2 style="color:#24A1DE">Telegram Web</h2>
@@ -338,6 +358,9 @@ function buildScenarios() {
             let senderSafe = `noreply@${rBrand.domain}`;
             let senderPhish = `security-verify@${rBrand.name.toLowerCase().replace(' ', '')}-alert.net`;
 
+            let qrSafe = `https://${rBrand.domain}/auth/session_verify?token=928103`;
+            let qrPhish = `http://stealer-bot-network.ru/qr_token_grabber?id=599023`;
+
             if (!isPhish) {
                 let useAlt = seededRandom(seed + 8) > 0.5;
                 url = `https://www.${useAlt ? rBrand.altDomain : rBrand.domain}/login`;
@@ -410,6 +433,8 @@ function buildScenarios() {
                 emailBodyRu: emailsRu[emailIdx],
                 senderEmailSafe: senderSafe,
                 senderEmailPhish: senderPhish,
+                qrPayloadSafe: qrSafe,
+                qrPayloadPhish: qrPhish,
                 hasVisualDefect: hasVisualDefect,
                 hasFakeBadge: hasFakeBadge,
                 isBitb: isBitb,
