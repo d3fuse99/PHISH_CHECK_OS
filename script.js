@@ -109,6 +109,20 @@ function closeSslModal() {
     document.getElementById('ssl-modal').hidden = true;
 }
 
+function openWhoisModal() {
+    const t = gameState.currentTarget;
+    document.getElementById('whois-domain').innerText = t.url;
+    document.getElementById('whois-registrar').innerText = t.isPhishing ? "CheapDomains LLC (Anonymous)" : t.brand.registrar;
+    document.getElementById('whois-created').innerText = t.isPhishing ? "2026-07-28 (2 days ago)" : t.brand.createdDate;
+    document.getElementById('whois-country').innerText = t.isPhishing ? "RU / CN (High Risk Zone)" : t.brand.country;
+    document.getElementById('whois-privacy').innerText = t.isPhishing ? "DISABLED / REDACTED" : "PROTECTED BY REGISTRAR";
+    document.getElementById('whois-modal').hidden = false;
+}
+
+function closeWhoisModal() {
+    document.getElementById('whois-modal').hidden = true;
+}
+
 function openEmailModal() {
     const t = gameState.currentTarget;
     let lang = localStorage.getItem('lang') || 'en';
@@ -121,6 +135,35 @@ function openEmailModal() {
 
 function closeEmailModal() {
     document.getElementById('email-modal').hidden = true;
+}
+
+function openGuideModal() {
+    document.getElementById('guide-modal').hidden = false;
+}
+
+function closeGuideModal() {
+    document.getElementById('guide-modal').hidden = true;
+}
+
+function openQrModal() {
+    const t = gameState.currentTarget;
+    document.getElementById('qr-decoded-url').innerText = t.isPhishing ? t.qrPayloadPhish : t.qrPayloadSafe;
+    document.getElementById('qr-warning-text').innerText = t.isPhishing ? "⚠️ WARNING: QR Payload forwards session tokens to an unauthorized domain!" : "✔ SAFE: QR Payload links to official domain.";
+    document.getElementById('qr-warning-text').style.color = t.isPhishing ? "var(--red)" : "var(--log-green)";
+    document.getElementById('qr-modal').hidden = false;
+}
+
+function closeQrModal() {
+    document.getElementById('qr-modal').hidden = true;
+}
+
+function submitScamReport() {
+    document.getElementById('report-modal').hidden = false;
+}
+
+function closeReportModal() {
+    document.getElementById('report-modal').hidden = true;
+    submitSentinelDecision(true);
 }
 
 function loadNextTarget() {
@@ -169,8 +212,13 @@ function loadNextTarget() {
 function useTool(type) {
     const out = document.getElementById('console-output');
     const t = gameState.currentTarget;
-    out.hidden = false;
 
+    if (type === 'whois') {
+        openWhoisModal();
+        return;
+    }
+
+    out.hidden = false;
     const btn = document.getElementById(`tool-${type}`);
     if (btn) btn.classList.add('active-tool');
     
@@ -196,9 +244,6 @@ function useTool(type) {
         out.innerText = isHttp 
             ? "[SSL_REPORT] ❌ CONNECTION UNSECURED: HTTP protocol without certificate!" 
             : `[SSL_REPORT] ✔ Issuer: ${t.brand.sslIssuer} | Certificate: Valid (TLS 1.3)`;
-    }
-    if(type === 'whois') {
-        out.innerText = `[WHOIS_QUERY] Domain: ${t.url}\nRegistrar: ${t.isPhishing ? "CheapDomains LLC (Anon)" : t.brand.registrar}\nCreated: ${t.isPhishing ? "2 days ago" : "12+ years ago"}`;
     }
     if(type === 'headers') {
         out.innerText = `[HEADERS_INSPECT] Server: ${t.isPhishing ? "nginx/scam-host" : "cloudflare"}\nX-Frame-Options: ${t.isPhishing ? "DISABLED" : "SAMEORIGIN"}\nStrict-Transport-Security: ${t.isPhishing ? "OFF" : "max-age=31536000"}`;
