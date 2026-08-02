@@ -1,28 +1,31 @@
 # 🛡️ SENTINEL_OS (Phish Check OS)
-![alt text](image.png)
+
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 ![License MIT](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
-![Status](https://img.shields.io/badge/Status-Active-brightgreen?style=for-the-badge)
+![Status](https://img.shields.io/badge/Status-Active_v1.2.0-brightgreen?style=for-the-badge)
 
 ## 📌 About The Project
 
-**SENTINEL_OS** is an interactive web-based cybersecurity simulator built to train users in identifying modern phishing techniques, social engineering tactics, and domain spoofing.
+**SENTINEL_OS** is a modern, interactive web-based cybersecurity simulator designed to train users in identifying web threats, phishing attacks, and domain spoofing.
 
-Instead of passive reading, users operate inside a simulated web browser environment to inspect realistic target sites, evaluate technical metadata (WHOIS, SSL, Headers), and detect subtle attack cues before making a decision.
+Users operate inside a simulated browser environment to inspect target URLs, SSL certificates, WHOIS registry data, email notification headers, and QR code payloads.
 
 ---
 
 ## 🛠️ Key Features
 
-* 🌐 **Realistic Full-Page Clones**: Target pages (Steam, Telegram Web, Discord, DHL, Google Drive, Instagram, PayPal, Amazon, Netflix, Spotify).
-* 🔒 **Interactive SSL Certificate Viewer**: Inspect certificate issuer, SHA-256 fingerprint, serial number, and validity dates directly from the address bar lock icon.
-* 📩 **Email Message Inspector**: View incoming notification headers (`From:`, `Subject:`, `Body`) to detect domain spoofing in sender addresses.
-* 🔍 **URL Structure Breakdown Tool**: Interactive `URL SCAN` inspector that color-codes protocol, subdomains, main domain, and path.
-* ⌨️ **Keyboard Shortcuts & Utilities**: Hotkeys (`1` Legit, `2` Phish, `Enter` Next), address bar URL copy tool, and web app manifest (PWA ready).
-* 🎭 **Advanced Threat Vectors**: Browser-in-the-Browser (BitB) attacks, visual anomalies, typosquatting, subdomain tricks, and auth spoofing.
-* 📊 **Analytical Feedback System**: Interactive log filters (`ALL`, `PASSED`, `FAILED`), copyable report summary, and Threat Analysis Report.
+* 💻 **Modern Dashboard**: Fullscreen clean layout inspired by modern developer tools (Vercel, Linear, GitHub).
+* 🔒 **SSL Certificate Viewer**: Click the lock icon to inspect certificate issuer, validity, and SHA-256 fingerprints.
+* 🔍 **WHOIS Registry Modal**: Detailed domain registration data including registrar, creation dates, country, and privacy shield status.
+* 📱 **QR Code Payload Inspector**: Click QR codes on Telegram/Discord logins to reveal hidden decoded URLs.
+* 📩 **Email Notification Viewer**: Inspect incoming notification headers (`From:`, `Subject:`, `Body`) to detect spoofed senders.
+* 🔍 **URL Structure Parser**: Interactive `URL SCAN` tool that color-codes protocol, subdomains, main domain, and path.
+* ❓ **Inspection Guide**: Built-in 4-step checklist for spotting phishing indicators.
+* 🚨 **CERT Threat Reporter**: Submit detected scam URLs to a simulated global blocklist.
+* ⌨️ **Keyboard Shortcuts & Utilities**: Hotkeys (`1` Legit, `2` Phish, `Enter` Next), address bar URL copy tool, and PWA manifest.
+* 📊 **Analytical Feedback**: Overall accuracy counter, log filters (`ALL`, `PASSED`, `FAILED`), and copyable threat report summary.
 * 🌍 **Localization**: Full dual-language support (**English / Russian**).
 
 ---
@@ -34,7 +37,7 @@ Instead of passive reading, users operate inside a simulated web browser environ
    git clone https://github.com/d3fuse99/PHISH_CHECK_OS.git
    ```
 2. Open `index.html` in any modern web browser.
-3. Choose an operation difficulty and start analyzing targets!
+3. Choose an operation difficulty and start inspecting targets!
 
 ---
 
