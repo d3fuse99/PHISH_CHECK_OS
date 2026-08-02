@@ -16,9 +16,9 @@
     <header class="app-header">
         <div class="header-left">
             <span class="header-logo">SENTINEL_OS</span>
-            <span class="status-pill">● SYSTEM READY</span>
         </div>
         <div class="header-right">
+            <button class="guide-btn" onclick="openGuideModal()" data-i18n="guide_btn">❓ GUIDE</button>
             <button class="lang-btn" onclick="toggleLanguage()">RU</button>
         </div>
     </header>
@@ -74,6 +74,45 @@
             <button class="btn-reset" onclick="resetProgress()" data-i18n="reset">RESET PROGRESS</button>
         </div>
     </main>
+
+    <div id="guide-modal" class="modal-overlay" hidden>
+        <div class="modal-window guide-window">
+            <div class="modal-header">
+                <span data-i18n="guide_modal_title">❓ Phishing Inspection Guide</span>
+                <span class="modal-close" onclick="closeGuideModal()">×</span>
+            </div>
+            <div class="modal-body">
+                <div class="guide-step">
+                    <span class="guide-num">1</span>
+                    <div class="guide-text">
+                        <strong data-i18n="guide_s1_title">Check Protocol & Lock</strong>
+                        <p data-i18n="guide_s1_desc">Ensure the URL starts with https://. Click the lock icon to view SSL Certificate validity.</p>
+                    </div>
+                </div>
+                <div class="guide-step">
+                    <span class="guide-num">2</span>
+                    <div class="guide-text">
+                        <strong data-i18n="guide_s2_title">Verify Main Domain</strong>
+                        <p data-i18n="guide_s2_desc">Watch out for subdomain tricks like discord.com.auth-verify.io where the real domain is auth-verify.io.</p>
+                    </div>
+                </div>
+                <div class="guide-step">
+                    <span class="guide-num">3</span>
+                    <div class="guide-text">
+                        <strong data-i18n="guide_s3_title">Inspect Email Sender</strong>
+                        <p data-i18n="guide_s3_desc">Click the email banner to check if the sender domain matches the official service.</p>
+                    </div>
+                </div>
+                <div class="guide-step">
+                    <span class="guide-num">4</span>
+                    <div class="guide-text">
+                        <strong data-i18n="guide_s4_title">Look for Anomalies</strong>
+                        <p data-i18n="guide_s4_desc">Check for typos on buttons, fake SSL badges painted on the page, or suspicious QR code payloads.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="data.js"></script>
     <script src="script.js"></script>
