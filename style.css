@@ -23,7 +23,7 @@ body {
     color: var(--text-primary); 
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
     margin: 0; padding: 0; 
-    min-height: 100vh;
+    min-height: 100vh; overflow-x: hidden; 
 }
 
 .dashboard-body {
@@ -54,22 +54,18 @@ body {
     gap: 16px;
 }
 
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
 .header-logo {
     font-size: 1.1rem;
     font-weight: 800;
     color: var(--text-bright);
     letter-spacing: 1px;
     font-family: monospace;
-}
-
-.status-pill {
-    font-size: 0.75rem;
-    font-family: monospace;
-    color: #3fb950;
-    background: rgba(46, 160, 67, 0.15);
-    border: 1px solid rgba(46, 160, 67, 0.3);
-    padding: 3px 10px;
-    border-radius: 20px;
 }
 
 .dashboard-container {
@@ -266,7 +262,7 @@ body {
     z-index: 1000;
 }
 
-.lang-btn {
+.guide-btn, .lang-btn {
     background: var(--panel-bg); 
     border: 1px solid var(--border-color); 
     color: var(--text-bright); 
@@ -278,6 +274,8 @@ body {
     transition: 0.2s;
 }
 
+.guide-btn { border-color: #58a6ff; color: #58a6ff; }
+.guide-btn:hover { background: rgba(56, 139, 253, 0.15); }
 .lang-btn:hover { border-color: #8b949e; }
 
 .test-container { 
@@ -481,35 +479,17 @@ body {
     transition: 0.2s;
 }
 
-.btn-legit {
-    border-color: #2ea043;
-    color: #3fb950;
-}
+.btn-legit { border-color: #2ea043; color: #3fb950; }
+.btn-legit:hover { background: #238636; color: #fff; }
 
-.btn-legit:hover {
-    background: #238636;
-    color: #fff;
-}
+.btn-phish { border-color: #da3633; color: #f85149; }
+.btn-phish:hover { background: #da3633; color: #fff; }
 
-.btn-phish {
-    border-color: #da3633;
-    color: #f85149;
-}
+.btn-report { border-color: #d29922; color: #d29922; }
+.btn-report:hover { background: #9e6a03; color: #fff; }
 
-.btn-phish:hover {
-    background: #da3633;
-    color: #fff;
-}
-
-.btn-primary {
-    background: #238636;
-    border-color: #2e8b57;
-    color: #fff;
-}
-
-.btn-primary:hover {
-    background: #2ea043;
-}
+.btn-primary { background: #238636; border-color: #2e8b57; color: #fff; }
+.btn-primary:hover { background: #2ea043; }
 
 .btn-secondary { 
     background: transparent; 
@@ -586,6 +566,12 @@ body {
 .cert-val { color: var(--text-bright); }
 .cert-code { font-family: monospace; font-size: 0.8rem; color: #3fb950; word-break: break-all; }
 
+.guide-window { max-width: 580px; }
+.guide-step { display: flex; gap: 15px; margin-bottom: 18px; align-items: flex-start; }
+.guide-num { background: #238636; color: #fff; width: 28px; height: 28px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-weight: bold; font-size: 0.9rem; flex-shrink: 0; }
+.guide-text strong { color: var(--text-bright); font-size: 0.95rem; display: block; margin-bottom: 2px; }
+.guide-text p { color: #8b949e; font-size: 0.85rem; margin: 0; line-height: 1.4; }
+
 .email-window { max-width: 580px; }
 .email-body-content { padding: 20px; text-align: left; }
 .email-row { margin-bottom: 8px; font-size: 0.88rem; }
@@ -594,6 +580,10 @@ body {
 .highlight-red { color: #f85149; font-weight: 600; }
 .email-divider { border: 0; border-top: 1px solid var(--border-color); margin: 12px 0; }
 .email-text { font-size: 0.9rem; line-height: 1.5; color: var(--text-primary); background: #0d1117; padding: 14px; border-radius: 6px; border: 1px solid var(--border-color); }
+
+.qr-interactive { cursor: pointer; transition: transform 0.2s; border: 2px dashed #58a6ff !important; }
+.qr-interactive:hover { transform: scale(1.05); }
+.qr-payload-code { background: #0d1117; border: 1px solid var(--border-color); color: #3fb950; padding: 12px; font-family: monospace; font-size: 0.85rem; border-radius: 6px; word-break: break-all; margin-top: 10px; }
 
 .fake-ssl-badge {
     background: rgba(46, 160, 67, 0.1);
