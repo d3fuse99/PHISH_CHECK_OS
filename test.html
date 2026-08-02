@@ -10,6 +10,7 @@
 </head>
 <body class="app-body fullscreen-mode">
     <div class="top-nav-bar">
+        <button class="guide-btn" onclick="openGuideModal()" data-i18n="guide_btn">❓ GUIDE</button>
         <button class="lang-btn" onclick="toggleLanguage()">RU</button>
     </div>
 
@@ -66,6 +67,7 @@
             <div class="btn-group row">
                 <button class="btn btn-legit" onclick="submitSentinelDecision(false)" data-i18n="btn_legit">[1] LEGITIMATE</button>
                 <button class="btn btn-phish" onclick="submitSentinelDecision(true)" data-i18n="btn_phish">[2] PHISHING</button>
+                <button class="btn btn-report" onclick="submitScamReport()" data-i18n="btn_report">🚨 REPORT SCAM</button>
             </div>
         </div>
 
@@ -129,6 +131,86 @@
                 <div class="email-row"><span class="email-label">Subject:</span> <span id="email-modal-subject" class="email-val bold"></span></div>
                 <hr class="email-divider">
                 <div id="email-modal-body" class="email-text"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="whois-modal" class="modal-overlay" hidden>
+        <div class="modal-window">
+            <div class="modal-header">
+                <span>🔍 WHOIS Domain Registry Data</span>
+                <span class="modal-close" onclick="closeWhoisModal()">×</span>
+            </div>
+            <div class="modal-body">
+                <div class="cert-field"><span class="cert-label">Domain Name:</span> <span id="whois-domain" class="cert-val"></span></div>
+                <div class="cert-field"><span class="cert-label">Registrar:</span> <span id="whois-registrar" class="cert-val"></span></div>
+                <div class="cert-field"><span class="cert-label">Creation Date:</span> <span id="whois-created" class="cert-val"></span></div>
+                <div class="cert-field"><span class="cert-label">Expiration Date:</span> <span id="whois-expires" class="cert-val">2027-10-15</span></div>
+                <div class="cert-field"><span class="cert-label">Registrant Country:</span> <span id="whois-country" class="cert-val"></span></div>
+                <div class="cert-field"><span class="cert-label">Name Servers:</span> <span id="whois-nameservers" class="cert-val">ns1.cloudflare.com, ns2.cloudflare.com</span></div>
+                <div class="cert-field"><span class="cert-label">Privacy Shield:</span> <span id="whois-privacy" class="cert-val"></span></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="qr-modal" class="modal-overlay" hidden>
+        <div class="modal-window">
+            <div class="modal-header">
+                <span>📱 Decoded QR Code Payload</span>
+                <span class="modal-close" onclick="closeQrModal()">×</span>
+            </div>
+            <div class="modal-body text-center">
+                <p style="color:#8b949e; font-size:0.9rem; margin-bottom:10px;">Scanning this QR code forwards your credentials to:</p>
+                <div class="qr-payload-code" id="qr-decoded-url"></div>
+                <p id="qr-warning-text" style="color:#f85149; font-size:0.85rem; margin-top:15px; font-weight:600;"></p>
+            </div>
+        </div>
+    </div>
+
+    <div id="report-modal" class="modal-overlay" hidden>
+        <div class="modal-window text-center" style="padding:30px;">
+            <div style="font-size:3rem; margin-bottom:10px;">🚨</div>
+            <h3 style="margin-bottom:10px; color:#f85149;">Threat Reported to PhishTank & CERT</h3>
+            <p style="color:#8b949e; font-size:0.9rem; margin-bottom:20px;">Target URL has been logged into the global blocklist database for analysis.</p>
+            <button class="btn btn-primary" onclick="closeReportModal()">CONTINUE</button>
+        </div>
+    </div>
+
+    <div id="guide-modal" class="modal-overlay" hidden>
+        <div class="modal-window guide-window">
+            <div class="modal-header">
+                <span data-i18n="guide_modal_title">❓ Phishing Inspection Guide</span>
+                <span class="modal-close" onclick="closeGuideModal()">×</span>
+            </div>
+            <div class="modal-body">
+                <div class="guide-step">
+                    <span class="guide-num">1</span>
+                    <div class="guide-text">
+                        <strong data-i18n="guide_s1_title">Check Protocol & Lock</strong>
+                        <p data-i18n="guide_s1_desc">Ensure the URL starts with https://. Click the lock icon to view SSL Certificate validity.</p>
+                    </div>
+                </div>
+                <div class="guide-step">
+                    <span class="guide-num">2</span>
+                    <div class="guide-text">
+                        <strong data-i18n="guide_s2_title">Verify Main Domain</strong>
+                        <p data-i18n="guide_s2_desc">Watch out for subdomain tricks like discord.com.auth-verify.io where the real domain is auth-verify.io.</p>
+                    </div>
+                </div>
+                <div class="guide-step">
+                    <span class="guide-num">3</span>
+                    <div class="guide-text">
+                        <strong data-i18n="guide_s3_title">Inspect Email Sender</strong>
+                        <p data-i18n="guide_s3_desc">Click the email banner to check if the sender domain matches the official service.</p>
+                    </div>
+                </div>
+                <div class="guide-step">
+                    <span class="guide-num">4</span>
+                    <div class="guide-text">
+                        <strong data-i18n="guide_s4_title">Look for Anomalies</strong>
+                        <p data-i18n="guide_s4_desc">Check for typos on buttons, fake SSL badges painted on the page, or suspicious QR code payloads.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
