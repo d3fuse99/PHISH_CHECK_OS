@@ -520,6 +520,61 @@ body {
     margin-top: 8px; 
 }
 
+.certificate-card {
+    background: linear-gradient(135deg, #161b22 0%, #0d1117 100%);
+    border: 2px solid #2e8b57;
+    border-radius: 12px;
+    padding: 30px;
+    margin-bottom: 25px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(46, 160, 67, 0.15);
+}
+
+.cert-header-badge {
+    font-family: monospace;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: #3fb950;
+    background: rgba(46, 160, 67, 0.15);
+    border: 1px solid rgba(46, 160, 67, 0.3);
+    padding: 4px 12px;
+    border-radius: 20px;
+    display: inline-block;
+    margin-bottom: 15px;
+}
+
+.cert-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--text-bright);
+    margin: 0 0 10px 0;
+}
+
+.cert-body {
+    font-size: 0.95rem;
+    color: #8b949e;
+    max-width: 600px;
+    margin: 0 auto 20px auto;
+    line-height: 1.5;
+}
+
+.cert-meta-row {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    font-family: monospace;
+    font-size: 0.85rem;
+    color: #8b949e;
+    margin-bottom: 15px;
+}
+
+.cert-footer-stamp {
+    font-family: monospace;
+    font-size: 0.75rem;
+    color: #3fb950;
+    letter-spacing: 1px;
+}
+
 .modal-overlay {
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
@@ -675,6 +730,12 @@ body {
 .log-entry { padding: 6px; border-bottom: 1px dashed #21262d; font-size: 0.85rem; }
 .log-entry.pass { color: #3fb950; }
 .log-entry.fail { color: #f85149; background: rgba(218, 54, 51, 0.1); }
+
+@media print {
+    body * { visibility: hidden; }
+    #certificate-card, #certificate-card * { visibility: visible; }
+    #certificate-card { position: absolute; left: 0; top: 0; width: 100%; border: 2px solid #000; color: #000; background: #fff; }
+}
 
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: #0d1117; }
