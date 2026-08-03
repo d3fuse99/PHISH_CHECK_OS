@@ -4,7 +4,7 @@
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 ![License MIT](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
-![Status](https://img.shields.io/badge/Status-Active_v1.2.0-brightgreen?style=for-the-badge)
+![Status](https://img.shields.io/badge/Status-v1.0.0_Stable-brightgreen?style=for-the-badge)
 
 ## 📌 About The Project
 
@@ -16,8 +16,9 @@ Users operate inside a simulated browser environment to inspect target URLs, SSL
 
 ## 🛠️ Key Features
 
-* 💻 **Modern Dashboard**: Fullscreen clean layout inspired by modern developer tools (Vercel, Linear, GitHub).
-* 🔒 **SSL Certificate Viewer**: Click the lock icon to inspect certificate issuer, validity, and SHA-256 fingerprints.
+* 💻 **Modern Full-Width Dashboard**: Vercel/Linear-inspired clean interface with real-time accuracy metrics.
+* 🎓 **Electronic Certificate Diploma**: Dynamic completion certificate with unique verification hash (`SHA-256`) and print capability.
+* 🔒 **Interactive SSL Certificate Viewer**: Inspect certificate issuer, SHA-256 fingerprint, serial number, and validity dates directly from the address bar lock icon.
 * 🔍 **WHOIS Registry Modal**: Detailed domain registration data including registrar, creation dates, country, and privacy shield status.
 * 📱 **QR Code Payload Inspector**: Click QR codes on Telegram/Discord logins to reveal hidden decoded URLs.
 * 📩 **Email Notification Viewer**: Inspect incoming notification headers (`From:`, `Subject:`, `Body`) to detect spoofed senders.
@@ -37,7 +38,26 @@ Users operate inside a simulated browser environment to inspect target URLs, SSL
    git clone https://github.com/d3fuse99/PHISH_CHECK_OS.git
    ```
 2. Open `index.html` in any modern web browser.
-3. Choose an operation difficulty and start inspecting targets!
+3. Choose an operation difficulty and start analyzing targets!
+
+---
+
+## 🌐 Live Demo
+
+Try the live application hosted via GitHub Pages:  
+👉 **[https://d3fuse99.github.io/PHISH_CHECK_OS/](https://d3fuse99.github.io/PHISH_CHECK_OS/)**
+
+---
+
+## 📈 Project Status
+
+- [x] Initial prototype & basic mechanics
+- [x] Full-width dashboard layout & Vercel-inspired UI
+- [x] Keyboard shortcuts & address bar utilities
+- [x] Interactive SSL Certificate & Email Message Viewers
+- [x] Interactive WHOIS & QR Code Payload Inspectors
+- [x] Electronic Completion Certificate Generator
+- [x] Refactored scenario generator & analytics
 
 ---
 
