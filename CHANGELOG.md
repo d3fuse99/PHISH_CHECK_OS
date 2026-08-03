@@ -2,6 +2,13 @@
 
 All notable changes to the **SENTINEL_OS** project will be documented in this file.
 
+## [1.0.0] - 2026-08-03
+
+### Release Highlights
+* **Official Stable Release v1.0.0**: Completed all planned architecture goals and UI overhauls.
+* **Electronic Diploma Certificate**: Generated completion certificate card with SHA-256 verification hash and print mode.
+* **Full-Width Vercel-Style Dashboard**: Clean, responsive, modern interface without floating containers or arbitrary XP counters.
+
 ## [1.2.0] - 2026-08-02
 
 ### Added
@@ -10,15 +17,9 @@ All notable changes to the **SENTINEL_OS** project will be documented in this fi
 * **Inspection Guide Modal**: Built-in 4-step phishing detection checklist (`❓ GUIDE`).
 * **CERT Scam Reporter**: One-click threat reporting (`🚨 REPORT SCAM`).
 
-### Changed
-* Overhauled dashboard UI to a clean, full-width layout inspired by Vercel/Linear.
-* Completely removed legacy EXP counters and arbitrary health bar mechanics.
-
 ## [1.1.0] - 2026-07-31
 
 ### Added
 * **SSL Certificate Viewer Modal**: Clickable lock icon to inspect certificate details.
 * **Email Notification Inspector**: Preview incoming email headers and sender addresses.
 * **URL Scan Inspector**: Interactive color-coded URL domain syntax parser.
-* **Copy Analysis Report**: Export final threat report summary to clipboard.
-* **PWA Web Manifest**: Integrated `manifest.json` for web app installation.
