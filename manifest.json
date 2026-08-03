@@ -3,6 +3,8 @@
   "short_name": "SENTINEL_OS",
   "description": "Interactive Cybersecurity Threat & Phishing Simulator",
   "start_url": "./index.html",
+  "scope": "./",
+  "dir": "ltr",
   "display": "standalone",
   "orientation": "any",
   "background_color": "#0d1117",
