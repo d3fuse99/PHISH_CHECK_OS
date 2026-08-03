@@ -166,6 +166,10 @@ function closeReportModal() {
     submitSentinelDecision(true);
 }
 
+function printCertificate() {
+    window.print();
+}
+
 function loadNextTarget() {
     const step = parseInt(gameState.currentStep);
     if(step > 50) {
@@ -321,6 +325,11 @@ function showAnalysisScreen() {
 
     renderAnalysisLogs('all');
 
+    let accuracy = Math.round((correct / 50) * 100);
+    document.getElementById('cert-accuracy').innerText = `${accuracy}%`;
+    document.getElementById('cert-date').innerText = new Date().toISOString().split('T')[0];
+    document.getElementById('cert-hash').innerText = `0x${Math.random().toString(16).substr(2, 8).toUpperCase()}`;
+
     let report = [];
 
     if (m.visual_defect > 0) report.push(lang === 'en' ? "Missed visual flaws and typos inside website content." : "Пропущены визуальные дефекты и опечатки в контенте.");
@@ -328,7 +337,7 @@ function showAnalysisScreen() {
     if (m.subdomain > 0) report.push(lang === 'en' ? "Fell for subdomain tricks." : "Попался на подмену поддоменов.");
     if (m.typosquatting > 0) report.push(lang === 'en' ? "Missed letter replacement in domain." : "Невнимательность к замене букв в домене.");
 
-    let finalBehavior = `<strong>SCORE: ${correct} / 50 (${Math.round((correct/50)*100)}%)</strong><br><br>` + 
+    let finalBehavior = `<strong>SCORE: ${correct} / 50 (${accuracy}%)</strong><br><br>` + 
         (report.length > 0 ? report.join("<br>") : (lang === 'en' ? "No security blind spots identified." : "Слепых зон безопасности не обнаружено."));
 
     document.getElementById('behavior-text').innerHTML = finalBehavior;
