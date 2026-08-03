@@ -29,6 +29,7 @@ Users operate inside a simulated browser environment to inspect target URLs, SSL
 * ⌨️ **Keyboard Shortcuts & Utilities**: Hotkeys (`1` Legit, `2` Phish, `Enter` Next), address bar URL copy tool, and PWA manifest.
 * 📊 **Analytical Feedback**: Overall accuracy counter, log filters (`ALL`, `PASSED`, `FAILED`), and copyable threat report summary.
 * 🌍 **Localization**: Full dual-language support (**English / Russian**).
+<img width="1418" height="1086" alt="изображение" src="https://github.com/user-attachments/assets/c27dbe0c-995b-4c38-8d9c-d6cc5d851932" />
 
 ---
 
