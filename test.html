@@ -84,6 +84,19 @@
 
     <div id="analysis-screen" class="test-container fade-in" hidden>
         <h1 class="success-text" data-i18n="comp_title">THREAT ANALYSIS REPORT</h1>
+        
+        <!-- ELECTRONIC CERTIFICATE DIPLOMA CARD -->
+        <div id="certificate-card" class="certificate-card">
+            <div class="cert-header-badge">CERTIFIED SECURITY ANALYST</div>
+            <h2 class="cert-title">SENTINEL OS CERTIFICATE OF COMPLETION</h2>
+            <p class="cert-body">This certifies that the user has successfully completed 50 Threat Detection Operations with an accuracy of <span id="cert-accuracy" class="highlight-green">0%</span>.</p>
+            <div class="cert-meta-row">
+                <div><span>ISSUED ON:</span> <strong id="cert-date">2026-08-03</strong></div>
+                <div><span>VERIFICATION:</span> <code id="cert-hash" class="cert-code">0x9F823A...</code></div>
+            </div>
+            <div class="cert-footer-stamp">VERIFIED BY SENTINEL_OS SECURITY ENGINE</div>
+        </div>
+
         <div class="behavior-report">
             <h3 data-i18n="report_header">SYSTEM BEHAVIORAL ANALYSIS</h3>
             <p id="behavior-text"></p>
@@ -94,6 +107,7 @@
             <button class="filter-btn" onclick="filterLog('pass')" id="filter-pass">PASSED</button>
             <button class="filter-btn" onclick="filterLog('fail')" id="filter-fail">FAILED</button>
             <button class="filter-btn" onclick="copyAnalysisReport()" id="copy-report-btn">📋 COPY REPORT</button>
+            <button class="filter-btn" onclick="printCertificate()">🖨️ SAVE CERTIFICATE</button>
         </div>
 
         <div id="analysis-log" class="analysis-log-container"></div>
